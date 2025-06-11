@@ -1,15 +1,12 @@
-const express = require('express');
-const path = require('path');
+const express = require("express");
+const cors = require("cors");
+const routes = require("./routes");
+
 const app = express();
-const exampleRoutes = require('./routes/exampleRoutes');
-const logger = require('./middlewares/logger');
 
-app.use(logger);
-app.use('/api', exampleRoutes);
+app.use(cors());
+app.use(express.json());
 
-app.use(express.static(path.join(__dirname, 'frontend/dist')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend/dist/index.html'));
-});
+app.use("/api", routes); // Endpoint semua dimulai dari /api
 
 module.exports = app;
